@@ -1,14 +1,18 @@
 package com.dgsw.findit.domain.lostItem.controller;
 
+import com.dgsw.findit.domain.lostItem.dto.LostItemCreateRequest;
 import com.dgsw.findit.domain.lostItem.entity.LostItemEntity;
 import com.dgsw.findit.domain.lostItem.service.LostItemService;
 import com.dgsw.findit.global.common.ApiResponse;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
@@ -16,6 +20,12 @@ import org.springframework.web.bind.annotation.RestController;
 @RequiredArgsConstructor
 public class LostItemController {
     private final LostItemService lostItemService;
+
+    @PostMapping
+    public ResponseEntity<ApiResponse<LostItemEntity>> createLostItem(@RequestBody LostItemCreateRequest request) {
+        LostItemEntity lostItem = lostItemService.createLostItem(request);
+        return ResponseEntity.status(HttpStatus.CREATED).body(ApiResponse.success(lostItem));
+    }
 
     @GetMapping("/{id}")
     public ResponseEntity<ApiResponse<LostItemEntity>> getLostItem(@PathVariable Long id) {
