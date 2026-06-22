@@ -1,7 +1,9 @@
 package com.dgsw.findit.domain.lostItem.service;
 
 import com.dgsw.findit.domain.lostItem.entity.LostItemEntity;
+import com.dgsw.findit.domain.lostItem.exception.LostItemErrorCode;
 import com.dgsw.findit.domain.lostItem.repository.LostItemRepository;
+import com.dgsw.findit.global.exception.CustomException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -12,6 +14,12 @@ public class LostItemService {
 
     public LostItemEntity getLostItem(Long id) {
         return repository.findById(id)
-                .orElseThrow(() -> new RuntimeException("분실물을 찾을 수 없습니다."));
+                .orElseThrow(() -> new CustomException(LostItemErrorCode.LOST_ITEM_NOT_FOUND));
+    }
+
+    public void deleteLostItem(Long id) {
+        LostItemEntity item = repository.findById(id)
+                .orElseThrow(() -> new CustomException(LostItemErrorCode.LOST_ITEM_NOT_FOUND));
+        repository.delete(item);
     }
 }
