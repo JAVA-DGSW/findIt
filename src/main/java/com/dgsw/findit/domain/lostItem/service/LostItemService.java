@@ -9,7 +9,7 @@ import org.springframework.stereotype.Service;
 @Service
 @RequiredArgsConstructor
 public class LostItemService {
-    private final LostItemRepository lostItemRepository;
+    private final LostItemRepository repository;
 
     public LostItemEntity createLostItem(LostItemCreateRequest request) {
         LostItemEntity lostItem = new LostItemEntity();
@@ -18,6 +18,11 @@ public class LostItemService {
         lostItem.setDescription(request.getDescription());
         lostItem.setStatus("보관중");
 
-        return lostItemRepository.save(lostItem);
+        return repository.save(lostItem);
+    }
+
+    public LostItemEntity getLostItem(Long id) {
+        return repository.findById(id)
+                .orElseThrow(() -> new RuntimeException("분실물을 찾을 수 없습니다."));
     }
 }
