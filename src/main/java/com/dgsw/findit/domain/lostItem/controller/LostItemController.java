@@ -19,7 +19,7 @@ import org.springframework.web.bind.annotation.RestController;
 public class LostItemController {
     private final LostItemService service;
 
-    @PostMapping
+    @PostMapping("/items")
     public ResponseEntity<LostItemEntity> createLostItem(@RequestBody LostItemCreateRequest request) {
         LostItemEntity lostItem = service.createLostItem(request);
         return ResponseEntity.status(HttpStatus.CREATED).body(lostItem);
