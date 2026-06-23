@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 
 @RestController
@@ -52,5 +53,10 @@ public class LostItemController {
             @RequestBody LostItemUpdateRequest request
     ) {
         return ResponseEntity.ok(ApiResponse.success(lostItemService.updateLostItem(id, request)));
+    }
+
+    @PatchMapping("/{id}/return")
+    public ResponseEntity<ApiResponse<LostItemEntity>> returnLostItem(@PathVariable Long id) {
+        return ResponseEntity.ok(ApiResponse.success(lostItemService.returnLostItem(id)));
     }
 }
