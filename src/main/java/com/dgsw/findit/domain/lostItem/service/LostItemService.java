@@ -52,7 +52,17 @@ public class LostItemService {
         item.setItemName(request.getItemName());
         item.setFoundLocation(request.getFoundLocation());
         item.setDescription(request.getDescription());
-        item.setStatus(request.getStatus());
+        if (request.getStatus() != null) {
+            item.setStatus(request.getStatus());
+        }
+        return repository.save(item);
+    }
+
+    @Transactional
+    public LostItemEntity returnLostItem(Long id) {
+        LostItemEntity item = repository.findById(id)
+                .orElseThrow(() -> new CustomException(LostItemErrorCode.LOST_ITEM_NOT_FOUND));
+        item.setStatus(LostItemStatus.RETURNED);
         return repository.save(item);
     }
 }
