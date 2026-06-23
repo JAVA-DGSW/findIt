@@ -7,6 +7,7 @@ import com.dgsw.findit.domain.lostItem.entity.LostItemStatus;
 import com.dgsw.findit.domain.lostItem.exception.LostItemErrorCode;
 import com.dgsw.findit.domain.lostItem.repository.LostItemRepository;
 import com.dgsw.findit.global.exception.CustomException;
+import java.util.List;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -26,6 +27,10 @@ public class LostItemService {
         lostItem.setStatus(LostItemStatus.STORED);
 
         return repository.save(lostItem);
+    }
+
+    public List<LostItemEntity> getLostItems() {
+        return repository.findAll();
     }
 
     public LostItemEntity getLostItem(Long id) {
