@@ -41,10 +41,10 @@ public class LostItemController {
     }
 
     @PutMapping("/{id}")
-    public LostItemEntity updateLostItem(
+    public ResponseEntity<ApiResponse<LostItemEntity>> updateLostItem(
             @PathVariable Long id,
             @RequestBody LostItemUpdateRequest request
     ) {
-        return lostItemService.updateLostItem(id, request);
+        return ResponseEntity.ok(ApiResponse.success(lostItemService.updateLostItem(id, request)));
     }
 }

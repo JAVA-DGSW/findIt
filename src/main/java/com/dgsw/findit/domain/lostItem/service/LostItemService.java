@@ -9,12 +9,15 @@ import com.dgsw.findit.domain.lostItem.repository.LostItemRepository;
 import com.dgsw.findit.global.exception.CustomException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 @Service
 @RequiredArgsConstructor
+@Transactional(readOnly = true)
 public class LostItemService {
     private final LostItemRepository repository;
 
+    @Transactional
     public LostItemEntity createLostItem(LostItemCreateRequest request) {
         LostItemEntity lostItem = new LostItemEntity();
         lostItem.setItemName(request.getItemName());
@@ -30,12 +33,14 @@ public class LostItemService {
                 .orElseThrow(() -> new CustomException(LostItemErrorCode.LOST_ITEM_NOT_FOUND));
     }
 
+    @Transactional
     public void deleteLostItem(Long id) {
         LostItemEntity item = repository.findById(id)
                 .orElseThrow(() -> new CustomException(LostItemErrorCode.LOST_ITEM_NOT_FOUND));
         repository.delete(item);
     }
 
+    @Transactional
     public LostItemEntity updateLostItem(Long id, LostItemUpdateRequest request) {
         LostItemEntity item = repository.findById(id)
                 .orElseThrow(() -> new CustomException(LostItemErrorCode.LOST_ITEM_NOT_FOUND));
