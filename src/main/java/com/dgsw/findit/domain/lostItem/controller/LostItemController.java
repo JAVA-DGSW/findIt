@@ -14,6 +14,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
+import com.dgsw.findit.domain.lostItem.dto.LostItemUpdateRequest;
+import org.springframework.web.bind.annotation.PutMapping;
 
 @RestController
 @RequestMapping("/items")
@@ -36,5 +38,13 @@ public class LostItemController {
     public ResponseEntity<ApiResponse<Void>> deleteLostItem(@PathVariable Long id) {
         lostItemService.deleteLostItem(id);
         return ResponseEntity.ok(ApiResponse.success());
+    }
+
+    @PutMapping("/{id}")
+    public LostItemEntity updateLostItem(
+            @PathVariable Long id,
+            @RequestBody LostItemUpdateRequest request
+    ) {
+        return lostItemService.updateLostItem(id, request);
     }
 }

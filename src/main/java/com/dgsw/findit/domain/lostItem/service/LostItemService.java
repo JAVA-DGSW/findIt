@@ -1,6 +1,7 @@
 package com.dgsw.findit.domain.lostItem.service;
 
 import com.dgsw.findit.domain.lostItem.dto.LostItemCreateRequest;
+import com.dgsw.findit.domain.lostItem.dto.LostItemUpdateRequest;
 import com.dgsw.findit.domain.lostItem.entity.LostItemEntity;
 import com.dgsw.findit.domain.lostItem.exception.LostItemErrorCode;
 import com.dgsw.findit.domain.lostItem.repository.LostItemRepository;
@@ -32,5 +33,15 @@ public class LostItemService {
         LostItemEntity item = repository.findById(id)
                 .orElseThrow(() -> new CustomException(LostItemErrorCode.LOST_ITEM_NOT_FOUND));
         repository.delete(item);
+    }
+
+    public LostItemEntity updateLostItem(Long id, LostItemUpdateRequest request) {
+        LostItemEntity item = repository.findById(id)
+                .orElseThrow(() -> new CustomException(LostItemErrorCode.LOST_ITEM_NOT_FOUND));
+        item.setItemName(request.getItemName());
+        item.setFoundLocation(request.getFoundLocation());
+        item.setDescription(request.getDescription());
+        item.setStatus(request.getStatus());
+        return repository.save(item);
     }
 }
