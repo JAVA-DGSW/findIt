@@ -15,5 +15,7 @@ public class LostItemEntity {
     private String itemName; // 물건명
     private String foundLocation; // 발견 장소
     private String description; // 설명
-    private String status; // 물건 상태
+
+    @Enumerated(EnumType.STRING)
+    private LostItemStatus status; // 물건 상태
 }
