@@ -3,6 +3,7 @@ package com.dgsw.findit.domain.lostItem.service;
 import com.dgsw.findit.domain.lostItem.dto.LostItemCreateRequest;
 import com.dgsw.findit.domain.lostItem.dto.LostItemUpdateRequest;
 import com.dgsw.findit.domain.lostItem.entity.LostItemEntity;
+import com.dgsw.findit.domain.lostItem.entity.LostItemStatus;
 import com.dgsw.findit.domain.lostItem.exception.LostItemErrorCode;
 import com.dgsw.findit.domain.lostItem.repository.LostItemRepository;
 import com.dgsw.findit.global.exception.CustomException;
@@ -19,7 +20,7 @@ public class LostItemService {
         lostItem.setItemName(request.getItemName());
         lostItem.setFoundLocation(request.getFoundLocation());
         lostItem.setDescription(request.getDescription());
-        lostItem.setStatus("보관중");
+        lostItem.setStatus(LostItemStatus.STORED);
 
         return repository.save(lostItem);
     }
