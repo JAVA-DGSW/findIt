@@ -1,9 +1,11 @@
 package com.dgsw.findit.domain.lostItem.controller;
 
 import com.dgsw.findit.domain.lostItem.dto.LostItemCreateRequest;
+import com.dgsw.findit.domain.lostItem.dto.LostItemUpdateRequest;
 import com.dgsw.findit.domain.lostItem.entity.LostItemEntity;
 import com.dgsw.findit.domain.lostItem.service.LostItemService;
 import com.dgsw.findit.global.common.ApiResponse;
+import java.util.List;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -14,7 +16,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
-import com.dgsw.findit.domain.lostItem.dto.LostItemUpdateRequest;
 import org.springframework.web.bind.annotation.PutMapping;
 
 @RestController
@@ -27,6 +28,11 @@ public class LostItemController {
     public ResponseEntity<ApiResponse<LostItemEntity>> createLostItem(@RequestBody LostItemCreateRequest request) {
         LostItemEntity lostItem = lostItemService.createLostItem(request);
         return ResponseEntity.status(HttpStatus.CREATED).body(ApiResponse.success(lostItem));
+    }
+
+    @GetMapping
+    public ResponseEntity<ApiResponse<List<LostItemEntity>>> getLostItems() {
+        return ResponseEntity.ok(ApiResponse.success(lostItemService.getLostItems()));
     }
 
     @GetMapping("/{id}")
